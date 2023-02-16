@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            form > * {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <form id="register">
+            <input type="text" name="email" />
+            <input type="password" name="password" />
+            <input type="password" name="rePass" />
+            <input type="submit" value="Register" />
+        </form>
+
+        <div>
+            <p>----------------------------------------------------------------------------</p>
+        </div>
+
+        <form id="login">
+            <input type="text" name="email" />
+            <input type="password" name="password" />
+            <input type="submit" value="Login" />
+        </form>
+
+        <script>
+            document.querySelector("#register").addEventListener("submit", onRegister);
+            document.querySelector("#login").addEventListener("submit", onLogin);
+
+            async function onRegister(ev) {
+                ev.preventDefault();
+
+                const formData = new FormData(ev.target);
+
+                const data = {
+                    email: formData.get("email"),
+                    password: formData.get("password"),
+                };
+
+                try {
+                    if (formData.get("email") === "" || formData.get("password") === "") {
+                        throw new Error("Username can not be blank!");
+                    }
+
+                    if (formData.get("password") != formData.get("rePass")) {
+                        throw new Error("Passwords don't match!");
+                    }
+
+                    const response = await fetch(`http://localhost:3030/users/register`, {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    console.log("response", response);
+
+                    if (response.ok === false) {
+                        const error = await response.json();
+                        console.log("error.message", error.message);
+                        throw new Error(error.message);
+                    }
+
+                    const formRegister = document.getElementById("register");
+                    formRegister.childNodes.forEach((node) => {
+                        if (node.value != "Register") {
+                            node.value = "";
+                        }
+                    });
+
+                    const resData = await response.json();
+
+                    console.log("resData", resData);
+
+                    sessionStorage.setItem("accessToken", resData.accessToken);
+                } catch (error) {
+                    alert(error.message);
+                }
+            }
+
+            async function onLogin(ev) {
+                ev.preventDefault();
+                // console.log("ev.target", ev.target);
+                const formData = new FormData(ev.target);
+
+                const data = {
+                    email: formData.get("email"),
+                    password: formData.get("password"),
+                };
+
+                try {
+                    if (formData.get("email") === "" || formData.get("password") === "") {
+                        throw new Error("Username can not be blank!");
+                    }
+
+                    const response = await fetch(`http://localhost:3030/users/login`, {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    console.log("response", response);
+
+                    if (response.ok === false) {
+                        const error = await response.json();
+                        throw new Error(error.message);
+                    }
+
+                    const formLogin = document.getElementById("login");
+                    formLogin.childNodes.forEach((node) => {
+                        if (node.value != "Login") {
+                            node.value = "";
+                        }
+                    });
+
+                    const resData = await response.json();
+                    console.log("resData", resData);
+
+                    sessionStorage.setItem("accessToken", resData.accessToken);
+                } catch (error) {
+                    alert(error.message);
+                }
+            }
+        </script>
+    </body>
+</html>

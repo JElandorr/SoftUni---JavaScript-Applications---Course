@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Test Page</title>
+        <script src="/src/app.js" type="module"></script>
+        <style>
+            #content {
+                display: none;
+            }
+
+            img {
+                max-height: 200px;
+                max-width: 200px;
+            }
+
+            input {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <a href="/" id="homeBtn">Home</a>
+            <a href="/catalog" id="catalogBtn">Catalog</a>
+            <a href="/about" id="aboutBtn">About</a>
+            <div id="guestnav">
+                <a href="/login" id="loginBtn">Login</a>
+                <a href="/register" id="registerBtn">Sign Up</a>
+            </div>
+            <div id="usernav">
+                <a href="javascript:void(0)" id="createBtn">Create</a>
+                <span id="greeting"></span>
+                <a href="javascript:void(0)" id="logoutBtn">Logout</a>
+            </div>
+        </nav>
+        <main></main>
+        <div id="content">
+            <section id="home">
+                <h2>Home Page</h2>
+                <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora quibusdam quia sed deserunt.
+                    Obcaecati ut molestias quos delectus et, placeat cupiditate reiciendis quibusdam recusandae fuga
+                    corporis dolorum sint iste sed! Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore ea
+                    ipsam eligendi vitae, aperiam expedita consequuntur quam iusto amet autem est beatae quibusdam
+                    perspiciatis ipsum dicta doloribus asperiores ducimus sed?
+                </p>
+            </section>
+            <section id="catalog">
+                <h2>Our Movies</h2>
+                <ul id="list">
+                    <li>Product 1</li>
+                    <li>Product 2</li>
+                    <li>Product 3</li>
+                </ul>
+            </section>
+            <section id="create">
+                <h3>Create Movie</h3>
+                <form action="create">
+                    <input type="text" name="title" placeholder="Title..." />
+                    <input type="text" name="poster" placeholder="Poster Link..." />
+                    <input type="text" name="description" placeholder="Description..." />
+                    <input type="submit" value="Create" />
+                </form>
+            </section>
+            <section id="about">
+                <h2>About Us</h2>
+                <p><span>address:</span><span>123 Sunset Blvd., Los Angeles, CA</span></p>
+                <p><span>phone:</span><span>+1-555-6985</span></p>
+                <p><span>email:</span><span>office@mytest.com</span></p>
+            </section>
+            <section id="login">
+                <div>
+                    <h3>Login Page</h3>
+                    <form action="register">
+                        <input type="text" name="email" placeholder="Email..." />
+                        <input type="password" name="password" placeholder="Password..." />
+                        <input type="submit" value="Login" />
+                    </form>
+                </div>
+            </section>
+            <section id="register">
+                <div>
+                    <h3>Register Page</h3>
+                    <form action="register">
+                        <input type="text" name="username" placeholder="User Name..." />
+                        <input type="text" name="email" placeholder="Email..." />
+                        <input type="password" name="password" placeholder="Password..." />
+                        <input type="password" name="repass" placeholder="Retype Password..." />
+                        <input type="submit" value="Sign Up" />
+                    </form>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>
