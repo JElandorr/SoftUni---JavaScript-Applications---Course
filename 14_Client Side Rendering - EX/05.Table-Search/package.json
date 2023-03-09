@@ -1,0 +1,24 @@
+{
+  "name": "05.table-search",
+  "version": "1.0.0",
+  "description": "",
+  "main": "solution.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha tests",
+    "start": "http-server -a localhost -p 3000 -P http://localhost:3000?"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.3.3",
+    "http-server": "0.12.3",
+    "playwright-chromium": "1.9.1"
+  },
+  "dependencies": {
+    "lit-html": "^2.6.1"
+  }
+}
