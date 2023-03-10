@@ -1,16 +1,16 @@
-import { html } from "lit-html";
+import { html } from "../../node_modules/lit-html/lit-html.js";
 
-export const itemCardTemplate = () => html`
+export const itemCardTemplate = (item) => html`
     <div class="col-md-4">
         <div class="card text-white bg-primary">
             <div class="card-body">
-                <img src="./images/chair.jpg" />
-                <p>Description here</p>
+                <img src=${item.img} />
+                <p>${item.description}</p>
                 <footer>
-                    <p>Price: <span>55 $</span></p>
+                    <p>Price: <span>${item.price} $</span></p>
                 </footer>
                 <div>
-                    <a href="#" class="btn btn-info">Details</a>
+                    <a href="/details/${item._id}" class="btn btn-info">Details</a>
                 </div>
             </div>
         </div>

@@ -5,16 +5,16 @@ async function request(url, method, data) {
     };
 
     if (data) {
-        if (localStorage.length != 0) {
-            apiOptions.headers = {
-                "Content-Type": "application/json",
-                "X-Authorization": `${localStorage.getItem("user")}`,
-            };
-        } else {
-            apiOptions.headers = { "Content-Type": "application/json" };
-        }
-
+        apiOptions.headers["Content-Type"] = "application/json";
         apiOptions.body = JSON.stringify(data);
+    }
+
+    // console.log(localStorage.getItem("user"));
+    // const user = localStorage.getItem("user");
+
+    if (localStorage.getItem("user")) {
+        const token = localStorage.getItem("user");
+        apiOptions.headers["X-Authorization"] = token;
     }
 
     try {
@@ -29,11 +29,11 @@ async function request(url, method, data) {
             return response;
         }
 
-        const data = await response.json();
+        const responseData = await response.json();
 
-        // console.log(data);
+        // console.log(responseData);
 
-        return data;
+        return responseData;
     } catch (error) {
         alert(error.message);
         throw new Error(error);

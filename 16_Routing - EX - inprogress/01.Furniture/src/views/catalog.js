@@ -1,10 +1,14 @@
 import page from "../../node_modules/page/page.mjs";
 import { html, render } from "../../node_modules/lit-html/lit-html.js";
 import { updateInfo } from "../app.js";
+import { getApi } from "../data/api.js";
+import { itemCardTemplate } from "./card.js";
+
+// import { itemCardTemplate } from "./card.js";
 
 const url = `http://localhost:3030/data/catalog`;
 
-let catalogTemplate = () => html`
+let catalogTemplate = (catalog) => html`
     <div class="row space-top">
         <div class="col-md-12">
             <h1>Welcome to Furniture System</h1>
@@ -12,49 +16,21 @@ let catalogTemplate = () => html`
         </div>
     </div>
     <div class="row space-top">
-        <div class="col-md-4">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <img src="./images/table.png" />
-                    <p>Description here</p>
-                    <footer>
-                        <p>Price: <span>235 $</span></p>
-                    </footer>
-                    <div>
-                        <a href="#" class="btn btn-info">Details</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <img src="./images/sofa.jpg" />
-                    <p>Description here</p>
-                    <footer>
-                        <p>Price: <span>1200 $</span></p>
-                    </footer>
-                    <div>
-                        <a href="#" class="btn btn-info">Details</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <img src="./images/chair.jpg" />
-                    <p>Description here</p>
-                    <footer>
-                        <p>Price: <span>55 $</span></p>
-                    </footer>
-                    <div>
-                        <a href="#" class="btn btn-info">Details</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        ${catalog.map((item) => {
+            return itemCardTemplate(item);
+        })}
     </div>
 `;
 
-export const catalogView = (context) => render(catalogTemplate(), document.querySelector(".container"));
+async function getFurniture() {
+    const catalogData = await getApi(url);
+    // const catalog = Object.values(catalogData);
+    console.log(catalogData);
+
+    return catalogData;
+}
+// console.log(catalog);
+// console.log(Object.values(catalog));
+
+export const catalogView = (context) =>
+    getFurniture().then((furniture) => render(catalogTemplate(furniture), document.querySelector(".container")));
